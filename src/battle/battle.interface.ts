@@ -5,3 +5,4 @@ export interface BattleDay {
 }
 
 export type Battle = BattleDay[];
+export type Strenght = 'attack' | 'defense';
