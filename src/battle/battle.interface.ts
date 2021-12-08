@@ -4,5 +4,10 @@ export interface BattleDay {
   day: number;
 }
 
-export type Battle = BattleDay[];
+export interface BattleOutput {
+  WINNER: string;
+  battleDays: BattleDay[];
+}
+
+export type Battle = BattleOutput;
 export type Strenght = 'attack' | 'defense';
