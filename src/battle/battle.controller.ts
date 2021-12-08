@@ -1,4 +1,10 @@
-import { Get, Query, Controller } from '@nestjs/common';
+import {
+  Get,
+  Query,
+  Controller,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 
 import {
   ApiBearerAuth,
@@ -22,6 +28,18 @@ export class BattleController {
     @Query('army1') army1: number,
     @Query('army2') army2: number,
   ): Promise<Battle> {
+    [army1, army2].map((num: number) => {
+      if (num <= 0) {
+        throw new HttpException(
+          {
+            status: HttpStatus.FORBIDDEN,
+            error: 'Query param needs to be bigger than 0!',
+          },
+          HttpStatus.FORBIDDEN,
+        );
+      }
+    });
+
     return await this.battleService.battleOfTwoArmies(army1, army2);
   }
 }
